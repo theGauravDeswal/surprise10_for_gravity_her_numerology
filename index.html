@@ -14,7 +14,7 @@ body {
     overflow: hidden;
 }
 
-/* Stars */
+/* 🌌 Stars */
 .stars {
     position: fixed;
     width: 100%;
@@ -27,33 +27,33 @@ body {
     to {background-position: 1000px 1000px;}
 }
 
-/* Pink aura */
+/* 🌸 Pink aura */
 .pink {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255,182,193,0.2), transparent);
+    background: radial-gradient(circle, rgba(255,182,193,0.18), transparent);
     opacity: 0;
     transition: opacity 2s;
 }
 
-/* Fairy particle */
-.fairy {
+/* ✨ Particles */
+.particle {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 10px white;
+    opacity: 0.7;
     animation: float 12s infinite ease-in-out;
 }
 @keyframes float {
     0% { transform: translate(0,0);}
-    50% { transform: translate(100px,-120px);}
+    50% { transform: translate(80px,-120px);}
     100% { transform: translate(0,0);}
 }
 
-/* Text */
+/* 🎬 Text */
 .container {
     position: absolute;
     top: 50%;
@@ -76,16 +76,27 @@ body {
     transform: translateY(0);
 }
 
-/* Highlight line */
+.fade-out {
+    opacity: 0 !important;
+}
+
+/* Titles */
+.title {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 20px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Final highlight */
 .highlight {
     font-size: 28px;
     font-weight: bold;
     text-shadow: 0 0 20px white;
-    animation: glow 2s infinite alternate;
-}
-@keyframes glow {
-    from {text-shadow: 0 0 10px white;}
-    to {text-shadow: 0 0 30px white;}
 }
 
 /* Controls */
@@ -95,6 +106,7 @@ body {
     width: 100%;
     text-align: center;
 }
+
 button {
     padding: 8px 14px;
     margin: 5px;
@@ -103,6 +115,7 @@ button {
     background: white;
     color: black;
 }
+
 .progress {
     width: 80%;
 }
@@ -114,9 +127,9 @@ button {
 <div class="stars"></div>
 <div class="pink" id="pink"></div>
 
-<!-- Fairy particles -->
-<div class="fairy" style="top:40%; left:30%;"></div>
-<div class="fairy" style="top:60%; left:70%; animation-delay:4s;"></div>
+<div class="particle" style="top:40%; left:30%;"></div>
+<div class="particle" style="top:60%; left:70%; animation-delay:4s;"></div>
+<div class="particle" style="top:50%; left:50%; animation-delay:2s;"></div>
 
 <div class="container">
     <div id="intro">
@@ -135,35 +148,70 @@ button {
     <button onclick="seek(-10)">⏪ 10s</button>
     <button onclick="seek(10)">⏩ 10s</button>
     <br>
-    <input type="range" id="progress" class="progress">
+    <input type="range" id="progress" class="progress" value="0">
 </div>
 
 <audio id="audio" src="voice.mp3"></audio>
-<audio id="heartbeat" src="heartbeat.mp3"></audio>
 
 <script>
 let audio = document.getElementById("audio");
-let heartbeat = document.getElementById("heartbeat");
 let main = document.getElementById("main");
 let progress = document.getElementById("progress");
+let isDragging = false;
 
-/* 🎯 TIMELINE */
 let script = [
-    {time: 5, text: "Jayanti"},
-    {time: 10, text: "(Isha… the one who returns to softness)"},
 
-    {time: 20, text: "You were never ‘too much’…"},
-    {time: 26, text: "You were just deeply alive."},
+{time: 5, text: "To Jayanti", type:"title"},
+{time: 10, text: "(Gravity… the cosmic attraction)", type:"subtitle"},
 
-    {time: 50, text: "There is a girl in you…", pink:true},
-    {time: 60, text: "She didn’t disappear.", pink:true},
-    {time: 65, text: "She just learned to settle for less.", pink:true},
+{time: 20, text: "Some girls don’t need attention…"},
+{time: 26, text: "they need presence."},
 
-    {time: 120, text: "You don’t break."},
-    {time: 125, text: "You adapt."},
-    {time: 130, text: "That’s rare."},
+{time: 40, text: "Not noise…"},
+{time: 46, text: "not constant talking…"},
+{time: 52, text: "just someone who actually feels them."},
 
-    {time: 200, text: "He chooses you in it.", highlight:true, heartbeat:true}
+{time: 120, text: "Because when a woman feels deeply…"},
+{time: 130, text: "everything inside her is louder."},
+
+{time: 200, text: "A woman like that…", pink:true},
+{time: 210, text: "wants to feel held…", pink:true},
+{time: 220, text: "understood…", pink:true},
+{time: 230, text: "desired… without asking.", pink:true},
+
+{time: 320, text: "She doesn’t chase…"},
+{time: 330, text: "but she responds to consistency."},
+
+{time: 420, text: "She can be soft…"},
+{time: 430, text: "and still have a fire inside her…"},
+
+{time: 520, text: "She doesn’t just want attention…"},
+{time: 530, text: "she wants to feel wanted."},
+
+{time: 700, text: "Because the right presence…"},
+{time: 710, text: "doesn’t make her overthink."},
+
+{time: 820, text: "It makes her feel calm…"},
+{time: 830, text: "even in her intensity."},
+
+{time: 950, text: "And when she meets someone…"},
+{time: 960, text: "who understands that balance…"},
+
+{time: 1100, text: "something in her softens again."},
+
+{time: 1250, text: "She doesn’t need to be changed…"},
+{time: 1260, text: "or simplified."},
+
+{time: 1400, text: "She just needs to be met…"},
+{time: 1410, text: "fully."},
+
+{time: 1550, text: "And when that happens…"},
+{time: 1560, text: "she gives a version of herself…"},
+{time: 1570, text: "that very few ever get to see."},
+
+{time: 1700, text: "The right man doesn’t try to control her…"},
+{time: 1710, text: "he understands her… and chooses her… exactly as she is.", highlight:true}
+
 ];
 
 let shown = [];
@@ -171,7 +219,6 @@ let shown = [];
 function start() {
     document.getElementById("intro").style.display = "none";
     document.getElementById("controls").style.display = "block";
-
     audio.play();
 
     audio.ontimeupdate = () => {
@@ -184,36 +231,31 @@ function start() {
                 el.className = "line";
                 el.innerText = line.text;
 
+                if (line.type === "title") el.classList.add("title");
+                if (line.type === "subtitle") el.classList.add("subtitle");
                 if (line.highlight) el.classList.add("highlight");
 
                 main.appendChild(el);
-
                 setTimeout(() => el.classList.add("show"), 100);
 
-                // remove older lines
                 if (main.children.length > 4) {
-                    main.removeChild(main.children[0]);
+                    main.children[0].classList.add("fade-out");
+                    setTimeout(() => {
+                        if(main.children[0]) main.removeChild(main.children[0]);
+                    }, 1500);
                 }
 
-                // pink aura
                 if (line.pink) {
                     document.getElementById("pink").style.opacity = 1;
-                }
-
-                // heartbeat moment
-                if (line.heartbeat) {
-                    heartbeat.play();
-                    document.body.style.transform = "scale(1.02)";
-                    setTimeout(()=> {
-                        document.body.style.transform = "scale(1)";
-                    }, 300);
                 }
 
                 shown[i] = true;
             }
         });
 
-        progress.value = (current / audio.duration) * 100;
+        if (!isDragging) {
+            progress.value = (current / audio.duration) * 100;
+        }
     };
 }
 
@@ -226,11 +268,16 @@ function seek(sec) {
     audio.currentTime += sec;
 }
 
-progress.oninput = () => {
-    audio.currentTime = (progress.value / 100) * audio.duration;
-};
+progress.addEventListener("input", () => {
+    isDragging = true;
+});
 
-/* intro */
+progress.addEventListener("change", () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+    isDragging = false;
+});
+
+/* intro animation */
 window.onload = () => {
     ["t1","t2","t3","t4"].forEach((id, i) => {
         setTimeout(() => {
