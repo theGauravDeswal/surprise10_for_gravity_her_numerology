@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+}
+
+/* Stars background */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: moveStars 60s linear infinite;
+}
+
+@keyframes moveStars {
+    from {background-position: 0 0;}
+    to {background-position: 1000px 1000px;}
+}
+
+/* Center content */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+}
+
+.fade-text {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.visible {
+    opacity: 1;
+}
+
+button {
+    padding: 12px 25px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Pink soft section */
+.soft {
+    background: rgba(255, 182, 193, 0.1);
+    border-radius: 20px;
+    padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="container" id="content">
+
+    <!-- Opening -->
+    <div id="intro">
+        <p class="fade-text" id="t1">Some people are understood in conversations…</p>
+        <p class="fade-text" id="t2">Some… require silence to be heard.</p>
+        <p class="fade-text" id="t3">This is not just a reading.</p>
+        <p class="fade-text" id="t4">This is you… seen.</p>
+
+        <button onclick="startExperience()">Play</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main" style="display:none;">
+
+        <p class="fade-text" id="n1"><b>Jayanti</b></p>
+        <p class="fade-text" id="n2">(Isha… the one who returns to softness)</p>
+
+        <p class="fade-text">You were never ‘too much’…</p>
+        <p class="fade-text">You were just deeply alive.</p>
+
+        <p class="fade-text">You feel everything… intensely.</p>
+        <p class="fade-text">You react… because you care.</p>
+        <p class="fade-text">You speak… because silence was never your nature.</p>
+
+        <p class="fade-text">People called it dramatic…</p>
+        <p class="fade-text">But it was always… real.</p>
+
+        <div class="soft">
+            <p class="fade-text">There is a girl in you…</p>
+            <p class="fade-text">Who still loves flowers… pink… magic…</p>
+            <p class="fade-text">Who still wants someone to go crazy for her…</p>
+
+            <p class="fade-text">She didn’t disappear.</p>
+            <p class="fade-text">She just learned to settle for less.</p>
+        </div>
+
+        <p class="fade-text">You fear losing control…</p>
+        <p class="fade-text">You fear… not being held when it matters.</p>
+
+        <p class="fade-text">But what you really fear is…</p>
+        <p class="fade-text">giving your heart fully… and not being met there.</p>
+
+        <p class="fade-text">But here’s the truth about you…</p>
+
+        <p class="fade-text">You don’t break.</p>
+        <p class="fade-text">You adapt.</p>
+        <p class="fade-text">You feel… and still move forward.</p>
+
+        <p class="fade-text">That’s not weakness.</p>
+        <p class="fade-text">That’s rare.</p>
+
+        <p class="fade-text">You don’t fall for people…</p>
+        <p class="fade-text">You fall for how they make you feel.</p>
+
+        <p class="fade-text">Seen.</p>
+        <p class="fade-text">Chosen.</p>
+        <p class="fade-text">Desired… without asking.</p>
+
+        <p class="fade-text">And when you finally meet someone…</p>
+        <p class="fade-text">Who listens beyond your words…</p>
+
+        <p class="fade-text">Something in you softens again.</p>
+
+        <p class="fade-text"><b>You don’t need to become anything more…</b></p>
+        <p class="fade-text"><b>The right person doesn’t fix your chaos…</b></p>
+        <p class="fade-text"><b>He chooses you in it.</b></p>
+
+        <p class="fade-text">Stay the way you are…</p>
+        <p class="fade-text">The ones meant for you…</p>
+        <p class="fade-text"><b>won’t ask you to be less.</b></p>
+
+    </div>
+
+</div>
+
+<audio id="audio" src="voice.mp3"></audio>
+
+<script>
+function startExperience() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    let audio = document.getElementById("audio");
+    audio.play();
+
+    let texts = document.querySelectorAll(".fade-text");
+
+    let delay = 0;
+    texts.forEach((el) => {
+        setTimeout(() => {
+            el.classList.add("visible");
+        }, delay);
+        delay += 4000; // adjust timing
+    });
+}
+
+// Intro animation
+window.onload = () => {
+    let introTexts = ["t1","t2","t3","t4"];
+    introTexts.forEach((id, i) => {
+        setTimeout(() => {
+            document.getElementById(id).classList.add("visible");
+        }, i * 2000);
+    });
+};
+</script>
+
+</body>
+</html>
